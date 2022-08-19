@@ -45,4 +45,4 @@ local function log(logStatus, message)
   end
 end
 
-return { LogStatus = LogStatus, log = log }
+return { log = log }
