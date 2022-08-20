@@ -10,8 +10,12 @@ end
 
 init()
 
+event.listen("touch", screenAPI.handleTouchEvent)
+
 while true do
     term.clear()
     screenAPI.display()
     os.sleep(screenInfo.ScreenRefreshTime)
 end
+
+event.ignore("touch", screenAPI.handleTouchEvent)
