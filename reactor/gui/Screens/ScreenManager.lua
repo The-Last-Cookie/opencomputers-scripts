@@ -15,7 +15,7 @@ local function handleTouchEvent(screenPointer, eventData)
 end
 
 local function showScreen(screenPointer, screenData)
-    if screenPointer == 0 or screenPointer >= ScreenCount then
+    if screenPointer <= 0 or screenPointer > ScreenCount then
         return
     end
 
