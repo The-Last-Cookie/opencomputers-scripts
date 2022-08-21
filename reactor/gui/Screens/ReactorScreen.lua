@@ -8,3 +8,5 @@ end
 local function show(reactorInfo)
     -- TODO: add GUI
 end
+
+return { handleTouchEvent = handleTouchEvent, show = show }
