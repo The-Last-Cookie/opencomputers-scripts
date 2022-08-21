@@ -16,6 +16,8 @@ local ReactorStatus = {
     ACTIVE = 2
 }
 
+local state = ReactorStatus.NOT_CONNECTED
+
 local previousEnergy = 0
 
 local function init()
@@ -30,6 +32,7 @@ end
 
 local function monitorReactor()
     if not component.isAvailable("br_reactor") or not component.isAvailable("induction_matrix") then
+        state = ReactorStatus.NOT_CONNECTED
         logger.log(logger.LogStatus.ERROR, "Exiting program with status 1")
         return
     end
@@ -40,6 +43,7 @@ local function monitorReactor()
             logger.log(logger.LogStatus.INFO, "Maximum hysterises value reached. Turning reactor off.")
         end
 
+        state = ReactorStatus.INACTIVE
         return
     end
 
@@ -49,11 +53,15 @@ local function monitorReactor()
             logger.log(logger.LogStatus.INFO, "Minimum hysterises value reached. Turning reactor on.")
         end
     end
+
+    if reactor.getActive() then
+        state = ReactorStatus.ACTIVE
+    else
+        state = ReactorStatus.INACTIVE
 end
 
 local function getReactorInfo()
     reactorInfo = {
-        Status = 0,
         Energy = matrix.getEnergy(),
         MaxEnergy = matrix.getMaxEnergy(),
         EnergyDelta = calculateEnergyPerSecond(),
@@ -62,6 +70,14 @@ local function getReactorInfo()
         FuelTemperature = reactor.getFuelTemperature(),
         WasteAmount = reactor.getWasteAmount()
     }
+
+    if state == ReactorStatus.NOT_CONNECTED then
+        reactorInfo.Status = ReactorStatus.NOT_CONNECTED
+    elseif state == ReactorStatus.ACTIVE then
+        reactorInfo.Status = ReactorStatus.ACTIVE
+    else
+        reactorInfo.Status = ReactorStatus.INACTIVE
+    end
 
     return reactorInfo
 end
