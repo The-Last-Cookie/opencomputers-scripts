@@ -6,6 +6,7 @@ local screenPointer = 1
 
 local function init()
     reactorAPI.init()
+    screenManager.init()
 end
 
 local function handleTouchEvent(name, address, x, y, button, player)
