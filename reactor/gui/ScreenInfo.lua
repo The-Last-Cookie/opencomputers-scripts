@@ -1,2 +1,4 @@
 -- screen refresh time in seconds
-ScreenRefreshTime = 2
+local ScreenRefreshTime = 2
+
+return { ScreenRefreshTime = ScreenRefreshTime }

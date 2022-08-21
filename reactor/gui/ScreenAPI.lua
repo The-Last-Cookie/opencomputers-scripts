@@ -1,4 +1,5 @@
 local screenManager = require "Screens/ScreenManager"
+local reactorAPI = require "ReactorAPI"
 
 -- arrays begin with 1
 local screenPointer = 1

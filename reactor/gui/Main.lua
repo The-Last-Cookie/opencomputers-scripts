@@ -1,5 +1,9 @@
+local event = require("event")
+local term = require("term")
+
 local logger = require "Logger"
 local screenInfo = require "ScreenInfo"
+local screenAPI = require "ScreenAPI"
 
 function init()
     logger.log(logger.LogStatus.INFO, "Starting program")

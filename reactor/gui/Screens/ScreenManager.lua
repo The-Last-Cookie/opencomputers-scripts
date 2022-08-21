@@ -1,7 +1,7 @@
-local screen1 = require "Screen1"
+local reactorScreen = require "Screens/ReactorScreen"
 
 local screens = {
-    screen1
+    reactorScreen
 }
 
 local ScreenCount = #screens
