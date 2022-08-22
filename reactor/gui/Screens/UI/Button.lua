@@ -58,7 +58,23 @@ local function draw()
     gpu.set((x + (width/2)) - (string.len(text)/2), y + (height/2), text)
 end
 
-return { x = x, y = y, width = width, height = height, buttonText = buttonText, holdOnClick = holdOnClick,
-    inactiveBackgroundColor = inactiveBackgroundColor, inactiveForegroundColor = inactiveForegroundColor,
-    activeBackgroundColor = activeBackgroundColor, activeForegroundColor = activeForegroundColor,
-    disable = disable, handleClick = handleClick, action = action, draw = draw }
+local function Button()
+    local button = {
+        x = x,
+        y = y,
+        width = width,
+        height = height,
+        inactiveBackgroundColor = inactiveBackgroundColor,
+        inactiveForegroundColor = inactiveForegroundColor,
+        activeBackgroundColor = activeBackgroundColor,
+        activeForegroundColor = activeForegroundColor,
+        text = text,
+        holdOnClick = holdOnClick,
+        action = action,
+        handleClick = handleClick,
+        draw = draw
+    }
+    return button
+end
+
+return { Button = Button }
