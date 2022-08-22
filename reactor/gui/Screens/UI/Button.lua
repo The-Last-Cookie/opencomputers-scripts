@@ -28,34 +28,35 @@ local state = ButtonStatus.INACTIVE
 
 local action = nil
 
-local function handleClick(eventData)
-    if action == nil then
+local function handleClick(self, eventData)
+    if self.action == nil then
         return
     end
 
-    if (eventData.x >= x and (eventData.x + width) <= x) and (eventData.y >= y and (eventData.y + height) <= y) then
-        if state == ButtonStatus.INACTIVE then
-            state = ButtonStatus.ACTIVE
-            action()
+    if (eventData.x >= self.x and (eventData.x + self.width) <= self.x) and (eventData.y >= self.y and (eventData.y + self.height) <= self.y) then
+        if self.state == ButtonStatus.INACTIVE then
+            self.state = ButtonStatus.ACTIVE
+            self.action()
         else
-            state = ButtonStatus.INACTIVE
+            self.state = ButtonStatus.INACTIVE
         end
     end
 end
 
-local function draw()
-    if not holdOnClick and state == ButtonStatus.ACTIVE then
-        state = ButtonStatus.INACTIVE
+local function draw(self)
+    if not self.holdOnClick and self.state == ButtonStatus.ACTIVE then
+        self.state = ButtonStatus.INACTIVE
     end
 
-    if state == ButtonStatus.INACTIVE then
-        drawAPI.Rectangle(x, y, width, height, activeBackgroundColor, activeForegroundColor)
-        gpu.set((x + (width/2)) - (string.len(text)/2), y + (height/2), text)
+    if self.state == ButtonStatus.INACTIVE then
+        print(self.x .. " " .. self.y .. " " .. self.text)
+        drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.activeBackgroundColor, self.activeForegroundColor)
+        gpu.set((self.x + (self.width/2)) - (string.len(self.text)/2), self.y + (self.height/2), self.text)
         return
     end
 
-    drawAPI.Rectangle(x, y, width, height, inactiveBackgroundColor, inactiveForegroundColor)
-    gpu.set((x + (width/2)) - (string.len(text)/2), y + (height/2), text)
+    drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.inactiveBackgroundColor, self.inactiveForegroundColor)
+    gpu.set((self.x + (self.width/2)) - (string.len(self.text)/2), self.y + (self.height/2), self.text)
 end
 
 local function Button()

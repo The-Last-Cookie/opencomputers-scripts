@@ -1,9 +1,9 @@
-local ui = require "Screens/UI/UIElements"
+local buttonAPI = require "Screens/UI/Button"
 
 local title = "Energy consumption"
 
-local button1 = ui.Button()
-local button2 = ui.Button()
+local button1 = buttonAPI.Button()
+local button2 = buttonAPI.Button()
 
 local function init()
     button1.x = 2
@@ -24,14 +24,14 @@ end
 local function handleTouchEvent(eventData)
     -- TODO: handle clicking buttons
     -- eventData: name, address, x, y, button, player
-    button1.handleClick(eventData)
-    button2.handleClick(eventData)
+    buttonAPI.handleClick(button1, eventData)
+    buttonAPI.handleClick(button2, eventData)
 end
 
 local function show(reactorInfo)
     -- TODO: add GUI
-    button1.draw()
-    button2.draw()
+    buttonAPI.draw(button1)
+    buttonAPI.draw(button2)
 end
 
 return { init = init, handleTouchEvent = handleTouchEvent, show = show }
