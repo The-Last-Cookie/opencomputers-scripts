@@ -33,7 +33,8 @@ local function handleClick(self, eventData)
         return
     end
 
-    if (eventData.x >= self.x and (eventData.x + self.width) <= self.x) and (eventData.y >= self.y and (eventData.y + self.height) <= self.y) then
+    if (eventData.x >= self.x and (self.x + self.width) >= eventData.x)
+        and (eventData.y >= self.y and (self.y + self.height) >= eventData.y) then
         if self.state == ButtonStatus.INACTIVE then
             self.state = ButtonStatus.ACTIVE
             self.action()
@@ -50,12 +51,12 @@ local function draw(self)
 
     if self.state == ButtonStatus.INACTIVE then
         print(self.x .. " " .. self.y .. " " .. self.text)
-        drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.activeBackgroundColor, self.activeForegroundColor)
+        drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.inactiveBackgroundColor, self.inactiveForegroundColor)
         gpu.set((self.x + (self.width/2)) - (string.len(self.text)/2), self.y + (self.height/2), self.text)
         return
     end
 
-    drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.inactiveBackgroundColor, self.inactiveForegroundColor)
+    drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.activeBackgroundColor, self.activeForegroundColor)
     gpu.set((self.x + (self.width/2)) - (string.len(self.text)/2), self.y + (self.height/2), self.text)
 end
 
@@ -70,12 +71,11 @@ local function Button()
         activeBackgroundColor = activeBackgroundColor,
         activeForegroundColor = activeForegroundColor,
         text = text,
+        state = state,
         holdOnClick = holdOnClick,
-        action = action,
-        handleClick = handleClick,
-        draw = draw
+        action = action
     }
     return button
 end
 
-return { Button = Button }
+return { Button = Button, draw = draw, handleClick = handleClick }
