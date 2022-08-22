@@ -11,7 +11,7 @@ end
 
 local function handleTouchEvent(name, address, x, y, button, player)
     -- TODO: check if player needs to be registered in pc for touch events
-    eventData = { name, address, x, y, button, player }
+    eventData = { name = name, address = address, x = x, y = y, button = button, player = player }
 
     -- TODO: implement toolbar at the bottom of the screen
     --if screenAPI.buttonIsPressed() == 1 then
