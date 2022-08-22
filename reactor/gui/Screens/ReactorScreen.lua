@@ -24,8 +24,8 @@ end
 local function handleTouchEvent(eventData)
     -- TODO: handle clicking buttons
     -- eventData: name, address, x, y, button, player
-    button1.handleClick()
-    button2.handleClick()
+    button1.handleClick(eventData)
+    button2.handleClick(eventData)
 end
 
 local function show(reactorInfo)
