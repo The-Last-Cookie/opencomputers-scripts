@@ -50,7 +50,7 @@ local function draw()
 
     if state == ButtonStatus.INACTIVE then
         drawAPI.Rectangle(x, y, width, height, activeBackgroundColor, activeForegroundColor)
-        gpu.set((x + (w/2)) - (string.len(text)/2), y + (h/2), text)
+        gpu.set((x + (width/2)) - (string.len(text)/2), y + (height/2), text)
         return
     end
 
