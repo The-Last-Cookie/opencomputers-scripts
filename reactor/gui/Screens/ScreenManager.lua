@@ -6,6 +6,12 @@ local screens = {
 
 local ScreenCount = #screens
 
+local function init()
+    for i = 1, ScreenCount, -1 do
+        screens[i].init()
+    end
+end
+
 local function handleTouchEvent(screenPointer, eventData)
     if screenPointer <= 0 or screenPointer > ScreenCount then
         return
@@ -22,4 +28,4 @@ local function showScreen(screenPointer, screenData)
     screens[screenPointer].show(screenData)
 end
 
-return { ScreenCount = ScreenCount, handleTouchEvent = handleTouchEvent, showScreen = showScreen }
+return { init = init, ScreenCount = ScreenCount, handleTouchEvent = handleTouchEvent, showScreen = showScreen }
