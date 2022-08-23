@@ -58,6 +58,7 @@ local function monitorReactor()
         state = ReactorStatus.ACTIVE
     else
         state = ReactorStatus.INACTIVE
+    end
 end
 
 local function getReactorInfo()
