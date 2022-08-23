@@ -8,10 +8,13 @@ local function Rectangle(x, y, w, h, color)
     gpu.setBackground(previousBackground)
 end
 
-local function Text(x, y, text, color)
+local function Text(x, y, text, backgroundColor, foregroundColor)
+    local previousBackground = gpu.getBackground()
     local previousForeground = gpu.getForeground()
+    gpu.setBackground(color)
     gpu.setForeground(color)
     gpu.set(x, y, text)
+    gpu.setBackground(previousBackground)
     gpu.setForeground(previousForeground)
 end
 
