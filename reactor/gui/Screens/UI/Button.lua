@@ -24,8 +24,8 @@ local function isClicked(self, eventData)
 end
 
 local function draw(self)
-    drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.backgroundColor, self.foregroundColor)
-    gpu.set((self.x + (self.width/2)) - (string.len(self.text)/2), self.y + (self.height/2), self.text)
+    drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.backgroundColor)
+    drawAPI.Text((self.x + (self.width/2)) - (string.len(self.text)/2), self.y + (self.height/2), self.text, self.foregroundColor)
 end
 
 local function Button()

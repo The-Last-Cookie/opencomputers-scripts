@@ -1,16 +1,18 @@
 local component = require("component")
 local gpu = component.gpu
 
-local function Rectangle(x, y, w, h, backgroundColor, foregroundColor)
+local function Rectangle(x, y, w, h, color)
     local previousBackground = gpu.getBackground()
-    local previousForeground = gpu.getForeground()
-
-    gpu.setBackground(backgroundColor)
-    gpu.setForeground(foregroundColor)
+    gpu.setBackground(color)
     gpu.fill(x, y, w, h, " ")
-
     gpu.setBackground(previousBackground)
+end
+
+local function Text(x, y, text, color)
+    local previousForeground = gpu.getForeground()
+    gpu.setForeground(color)
+    gpu.set(x, y, text)
     gpu.setForeground(previousForeground)
 end
 
-return { Rectangle = Rectangle }
+return { Rectangle = Rectangle, Text = Text }
