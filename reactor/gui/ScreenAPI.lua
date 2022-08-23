@@ -14,17 +14,9 @@ local function handleTouchEvent(name, address, x, y, button, player)
     eventData = { name = name, address = address, x = x, y = y, button = button, player = player }
 
     -- TODO: implement toolbar at the bottom of the screen
-    --if screenAPI.buttonIsPressed() == 1 then
-    --    switchScreen(-1)
-    --elseif screenAPI.buttonIsPressed() == 2 then
-    --    switchScreen(1)
-    --end
 
     screenManager.handleTouchEvent(screenPointer, eventData)
 end
-
---local function buttonIsPressed()
---end
 
 local function switchScreen(direction)
     screenPointer = (screenPointer + direction) % screenManager.ScreenCount
