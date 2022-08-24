@@ -13,7 +13,9 @@ local hysteresis_min = 0.3
 local ReactorStatus = {
     NOT_CONNECTED = 0,
     INACTIVE = 1,
-    ACTIVE = 2
+    ACTIVE = 2,
+    FORCE_INACTIVE = 3,
+    FORCE_ACTIVE = 4
 }
 
 local state = ReactorStatus.NOT_CONNECTED
@@ -37,14 +39,19 @@ local function monitorReactor()
         return
     end
 
+    if state == ReactorStatus.FORCE_ACTIVE then
+        return
+    end
+
+    if state == ReactorStatus.FORCE_INACTIVE then
+        return
+    end
+
     if matrix.getEnergy() / matrix.getMaxEnergy() >= hysteresis_max then
         if reactor.getActive() then
             reactor.setActive(false)
             logger.log(logger.LogStatus.INFO, "Maximum hysterises value reached. Turning reactor off.")
         end
-
-        state = ReactorStatus.INACTIVE
-        return
     end
 
     if matrix.getEnergy() / matrix.getMaxEnergy() <= hysteresis_min then
@@ -74,6 +81,10 @@ local function getReactorInfo()
 
     if state == ReactorStatus.NOT_CONNECTED then
         reactorInfo.Status = ReactorStatus.NOT_CONNECTED
+    elseif state == ReactorStatus.FORCE_ACTIVE then
+        reactorInfo.Status = ReactorStatus.FORCE_ACTIVE
+    elseif state == ReactorStatus.FORCE_INACTIVE then
+        reactorInfo.Status = ReactorStatus.FORCE_INACTIVE
     elseif state == ReactorStatus.ACTIVE then
         reactorInfo.Status = ReactorStatus.ACTIVE
     else
