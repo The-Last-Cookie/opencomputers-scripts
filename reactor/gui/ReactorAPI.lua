@@ -32,6 +32,27 @@ local function calculateEnergyPerSecond()
     return (matrix.getEnergy() - previousEnergy) / screenInfo.ScreenRefreshTime
 end
 
+local function forceActive()
+    state = ReactorStatus.FORCE_ACTIVE
+    reactor.setActive(true)
+    logger.log(logger.LogStatus.WARNING, "Reactor now in forced active mode. It won't turn off without manual assistance.")
+end
+
+local function forceInactive()
+    state = ReactorStatus.FORCE_INACTIVE
+    reactor.setActive(false)
+    logger.log(logger.LogStatus.WARNING, "Reactor now in forced inactive mode. It won't turn on without manual assistance.")
+end
+
+local function disableForce()
+    if state == ReactorStatus.FORCE_ACTIVE then
+        state = ReactorStatus.ACTIVE
+    elseif state == ReactorStatus.FORCE_INACTIVE
+        state = ReactorStatus.INACTIVE
+    end
+    logger.log(logger.LogStatus.WARNING, "Forced mode deactivated.")
+end
+
 local function monitorReactor()
     if not component.isAvailable("br_reactor") or not component.isAvailable("induction_matrix") then
         state = ReactorStatus.NOT_CONNECTED
