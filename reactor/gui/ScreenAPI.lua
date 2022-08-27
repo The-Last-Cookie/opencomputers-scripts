@@ -86,4 +86,4 @@ local function display()
     screenManager.showScreen(screenPointer, reactorInfo)
 end
 
-return { init = init, handleTouchEvent = handleTouchEvent, switchScreen = switchScreen, display = display }
+return { init = init, handleTouchEvent = handleTouchEvent, display = display }
