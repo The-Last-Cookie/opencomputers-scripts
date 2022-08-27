@@ -24,3 +24,6 @@ end
 
 event.ignore("touch", screenAPI.handleTouchEvent)
 term.clear()
+
+-- this would stay on false due to caching
+program.IsRunning = true
