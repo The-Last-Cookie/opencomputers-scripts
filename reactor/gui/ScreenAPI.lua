@@ -43,6 +43,7 @@ end
 local function drawToolbar()
     drawAPI.Rectangle(1, 1, 160, 5, 0x696969)
     buttonAPI.draw(btnExit)
+    screenManager.drawScreenTitle(screenPointer)
 
     if screenManager.ScreenCount > 1 then
         buttonAPI.draw(btnSwitchLeft)
