@@ -51,6 +51,15 @@ local function drawToolbar()
     end
 end
 
+local function switchScreen(direction)
+    -- convert screenPointer to be an element of {0, ..., screenCount - 1}
+    screenPointer = screenPointer - 1
+    screenPointer = (screenPointer + direction) % screenManager.ScreenCount
+
+    -- convert screenPointer back, since arrays begin at 1
+    screenPointer = screenPointer + 1
+end
+
 local function handleTouchEvent(name, address, x, y, button, player)
     -- TODO: check if player needs to be registered in pc for touch events
     eventData = { name = name, address = address, x = x, y = y, button = button, player = player }
@@ -67,15 +76,6 @@ local function handleTouchEvent(name, address, x, y, button, player)
     end
 
     screenManager.handleTouchEvent(screenPointer, eventData)
-end
-
-local function switchScreen(direction)
-    -- convert screenPointer to be an element of {0, ..., screenCount - 1}
-    screenPointer = screenPointer - 1
-    screenPointer = (screenPointer + direction) % screenManager.ScreenCount
-
-    -- convert screenPointer back, since arrays begin at 1
-    screenPointer = screenPointer + 1
 end
 
 local function display()
