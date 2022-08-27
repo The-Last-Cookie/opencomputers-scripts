@@ -19,7 +19,12 @@ local function handleTouchEvent(name, address, x, y, button, player)
 end
 
 local function switchScreen(direction)
+    -- convert screenPointer to be an element of {0, ..., screenCount - 1}
+    screenPointer = screenPointer - 1
     screenPointer = (screenPointer + direction) % screenManager.ScreenCount
+
+    -- convert screenPointer back, since arrays begin at 1
+    screenPointer = screenPointer + 1
 end
 
 local function display()
