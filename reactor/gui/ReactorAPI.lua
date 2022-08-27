@@ -47,7 +47,7 @@ end
 local function disableForce()
     if state == ReactorStatus.FORCE_ACTIVE then
         state = ReactorStatus.ACTIVE
-    elseif state == ReactorStatus.FORCE_INACTIVE
+    elseif state == ReactorStatus.FORCE_INACTIVE then
         state = ReactorStatus.INACTIVE
     end
     logger.log(logger.LogStatus.WARNING, "Forced mode deactivated.")
