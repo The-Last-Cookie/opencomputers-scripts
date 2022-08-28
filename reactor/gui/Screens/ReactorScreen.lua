@@ -123,7 +123,7 @@ local function handleTouchEvent(eventData)
 end
 
 local function show(reactorInfo)
-    drawAPI.BorderBox(2, 7, 40, 18, "Information", 0x5A5A5A)
+    drawAPI.BorderBox(2, 7, 44, 18, "Information", 0x5A5A5A)
 
     if reactorInfo.Status == reactorAPI.ReactorStatus.NOT_CONNECTED then
         drawAPI.Text(4, 9, "Reactor status: Not connected", 0x000000, 0xFFFFFF)
@@ -145,7 +145,7 @@ local function show(reactorInfo)
     drawAPI.Text(4, 21, "Fuel temperature: " .. reactorInfo.FuelTemperature .. " °C", 0x000000, 0xFFFFFF)
     drawAPI.Text(4, 23, "Waste amount: " .. reactorInfo.WasteAmount .. " mB", 0x000000, 0xFFFFFF)
 
-    drawAPI.BorderBox(2, 27, 40, 10, "Controls", 0x5A5A5A)
+    drawAPI.BorderBox(2, 27, 44, 10, "Controls", 0x5A5A5A)
 
     buttonAPI.draw(btnReactorOn)
     buttonAPI.draw(btnReactorOff)
