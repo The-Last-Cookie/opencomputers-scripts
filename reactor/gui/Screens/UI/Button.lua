@@ -1,6 +1,4 @@
 local string = require("string")
-local component = require("component")
-local gpu = component.gpu
 
 local drawAPI = require "Screens/UI/DrawAPI"
 
