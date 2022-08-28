@@ -84,11 +84,7 @@ local function monitorReactor()
         return
     end
 
-    if state == ReactorStatus.FORCE_ACTIVE then
-        return
-    end
-
-    if state == ReactorStatus.FORCE_INACTIVE then
+    if state == ReactorStatus.FORCE_ACTIVE or state == ReactorStatus.FORCE_INACTIVE then
         return
     end
 
