@@ -54,10 +54,18 @@ local function disableForce()
 end
 
 local function setHysteresisMin(value)
+    if value > 1 or value <= 0 or value >= hysteresis_max then
+        return
+    end
+
     hysteresis_min = value
 end
 
 local function setHysteresisMax(value)
+    if value > 1 or value <= 0 or value <= hysteresis_min then
+        return
+    end
+
     hysteresis_max = value
 end
 
