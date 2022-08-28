@@ -16,7 +16,7 @@ local btnHysMaxDecrease = buttonAPI.Button()
 
 local function init()
     btnReactorOn.x = 4
-    btnReactorOn.y = 27
+    btnReactorOn.y = 29
     btnReactorOn.width = 10
     btnReactorOn.height = 3
     btnReactorOn.backgroundColor = 0x00FF00
@@ -24,7 +24,7 @@ local function init()
     btnReactorOn.text = "On"
 
     btnReactorOff.x = 4
-    btnReactorOff.y = 31
+    btnReactorOff.y = 33
     btnReactorOff.width = 10
     btnReactorOff.height = 3
     btnReactorOff.backgroundColor = 0xFF0000
@@ -32,7 +32,7 @@ local function init()
     btnReactorOff.text = "Off"
 
     btnReactorAuto.x = 4
-    btnReactorAuto.y = 35
+    btnReactorAuto.y = 37
     btnReactorAuto.width = 10
     btnReactorAuto.height = 3
     btnReactorAuto.backgroundColor = 0x0000FF
@@ -40,7 +40,7 @@ local function init()
     btnReactorAuto.text = "Auto"
 
     btnHysMinIncrease.x = 21
-    btnHysMinIncrease.y = 29
+    btnHysMinIncrease.y = 31
     btnHysMinIncrease.width = 10
     btnHysMinIncrease.height = 3
     btnHysMinIncrease.backgroundColor = 0x0000FF
@@ -48,7 +48,7 @@ local function init()
     btnHysMinIncrease.text = "Min + 10"
 
     btnHysMinDecrease.x = 21
-    btnHysMinDecrease.y = 33
+    btnHysMinDecrease.y = 35
     btnHysMinDecrease.width = 10
     btnHysMinDecrease.height = 3
     btnHysMinDecrease.backgroundColor = 0x0000FF
@@ -56,7 +56,7 @@ local function init()
     btnHysMinDecrease.text = "Min - 10"
 
     btnHysMaxIncrease.x = 32
-    btnHysMaxIncrease.y = 29
+    btnHysMaxIncrease.y = 31
     btnHysMaxIncrease.width = 10
     btnHysMaxIncrease.height = 3
     btnHysMaxIncrease.backgroundColor = 0x0000FF
@@ -64,7 +64,7 @@ local function init()
     btnHysMaxIncrease.text = "Max + 10"
 
     btnHysMaxDecrease.x = 32
-    btnHysMaxDecrease.y = 33
+    btnHysMaxDecrease.y = 35
     btnHysMaxDecrease.width = 10
     btnHysMaxDecrease.height = 3
     btnHysMaxDecrease.backgroundColor = 0x0000FF
@@ -91,6 +91,18 @@ local function handleTouchEvent(eventData)
 end
 
 local function show(reactorInfo)
+    if reactorInfo.Status == reactorAPI.ReactorStatus.NOT_CONNECTED then
+        drawAPI.Text(4, 7, "Reactor status: Not connected", 0x000000, 0xFFFFFF)
+    elseif reactorInfo.Status == reactorAPI.ReactorStatus.FORCE_ACTIVE then
+        drawAPI.Text(4, 7, "Reactor status: Active (force)", 0x000000, 0xFFFFFF)
+    elseif reactorInfo.Status == reactorAPI.ReactorStatus.FORCE_INACTIVE then
+        drawAPI.Text(4, 7, "Reactor status: Inactive (force)", 0x000000, 0xFFFFFF)
+    elseif reactorInfo.Status == reactorAPI.ReactorStatus.ACTIVE then
+        drawAPI.Text(4, 7, "Reactor status: Active", 0x000000, 0xFFFFFF)
+    else
+        drawAPI.Text(4, 7, "Reactor status: Inactive", 0x000000, 0xFFFFFF)
+    end
+
     drawAPI.Text(4, 9, "Current energy: " .. reactorInfo.Energy .. " RF", 0x000000, 0xFFFFFF)
     drawAPI.Text(4, 11, "Maximum energy: " .. reactorInfo.MaxEnergy .. " RF", 0x000000, 0xFFFFFF)
     drawAPI.Text(4, 13, "Energy production: " .. reactorInfo.EnergyDelta .. " RF/s", 0x000000, 0xFFFFFF)
@@ -101,9 +113,6 @@ local function show(reactorInfo)
 
     local strHys = "Hysterises values : " .. reactorAPI.getHysteresisMin() * 100 .. " % - " .. reactorAPI.getHysteresisMax() * 100 .. " %"
     drawAPI.Text(21, 27, strHys, 0x000000, 0xFFFFFF)
-
-    -- TODO: show status via lamps
-    drawAPI.Text(30, 7, "Reactor status: " .. reactorInfo.Status, 0x000000, 0xFFFFFF)
 
     buttonAPI.draw(btnReactorOn)
     buttonAPI.draw(btnReactorOff)
