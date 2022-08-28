@@ -61,6 +61,14 @@ local function setHysteresisMax(value)
     hysteresis_max = value
 end
 
+local function getHysteresisMin()
+    return hysteresis_min
+end
+
+local function getHysteresisMax()
+    return hysteresis_max
+end
+
 local function monitorReactor()
     if not component.isAvailable("br_reactor") or not component.isAvailable("induction_matrix") then
         state = ReactorStatus.NOT_CONNECTED
@@ -125,5 +133,5 @@ local function getReactorInfo()
     return reactorInfo
 end
 
-return { init = init, setHysteresisMax = setHysteresisMax, setHysteresisMin = setHysteresisMin,
-    monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
+return { init = init, setHysteresisMax = setHysteresisMax, setHysteresisMin = setHysteresisMin, getHysteresisMin = getHysteresisMin,
+    getHysteresisMax = getHysteresisMax, monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
