@@ -53,6 +53,14 @@ local function disableForce()
     logger.log(logger.LogStatus.WARNING, "Forced mode deactivated.")
 end
 
+local function setHysteresisMin(value)
+    hysteresis_min = value
+end
+
+local function setHysteresisMax(value)
+    hysteresis_max = value
+end
+
 local function monitorReactor()
     if not component.isAvailable("br_reactor") or not component.isAvailable("induction_matrix") then
         state = ReactorStatus.NOT_CONNECTED
@@ -97,7 +105,9 @@ local function getReactorInfo()
         CasingTemperature = reactor.getCasingTemperature(),
         FuelAmount = reactor.getFuelAmount(),
         FuelTemperature = reactor.getFuelTemperature(),
-        WasteAmount = reactor.getWasteAmount()
+        WasteAmount = reactor.getWasteAmount(),
+        HysteresisMin = hysteresis_min,
+        HysteresisMax = hysteresis_max
     }
 
     if state == ReactorStatus.NOT_CONNECTED then
@@ -115,4 +125,5 @@ local function getReactorInfo()
     return reactorInfo
 end
 
-return { init = init, monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
+return { init = init, setHysteresisMax = setHysteresisMax, setHysteresisMin = setHysteresisMin,
+    monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
