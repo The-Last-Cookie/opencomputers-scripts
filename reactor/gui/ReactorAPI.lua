@@ -134,4 +134,5 @@ local function getReactorInfo()
 end
 
 return { init = init, setHysteresisMax = setHysteresisMax, setHysteresisMin = setHysteresisMin, getHysteresisMin = getHysteresisMin,
-    getHysteresisMax = getHysteresisMax, monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
+    forceActive = forceActive, forceInactive = forceInactive, disableForce = disableForce, getHysteresisMax = getHysteresisMax,
+    monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
