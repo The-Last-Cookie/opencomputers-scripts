@@ -1,7 +1,7 @@
 local component = require("component")
 
 local logger = require "Logger"
-local screenInfo = require "ScreenInfo"
+local program = require "Program"
 
 local reactor = component.br_reactor
 local matrix = component.induction_matrix
@@ -29,7 +29,7 @@ local function init()
 end
 
 local function calculateEnergyPerSecond()
-    return (matrix.getEnergy() - previousEnergy) / screenInfo.ScreenRefreshTime
+    return (matrix.getEnergy() - previousEnergy) / program.ScreenRefreshTime
 end
 
 local function forceActive()
@@ -47,7 +47,7 @@ end
 local function disableForce()
     if state == ReactorStatus.FORCE_ACTIVE then
         state = ReactorStatus.ACTIVE
-    elseif state == ReactorStatus.FORCE_INACTIVE
+    elseif state == ReactorStatus.FORCE_INACTIVE then
         state = ReactorStatus.INACTIVE
     end
     logger.log(logger.LogStatus.WARNING, "Forced mode deactivated.")

@@ -1,4 +1,4 @@
-local title = "Energy consumption"
+local Title = "Energy consumption"
 
 local function init()
 end
@@ -12,4 +12,4 @@ local function show(reactorInfo)
     -- TODO: add GUI
 end
 
-return { init = init, handleTouchEvent = handleTouchEvent, show = show }
+return { Title = Title, init = init, handleTouchEvent = handleTouchEvent, show = show }
