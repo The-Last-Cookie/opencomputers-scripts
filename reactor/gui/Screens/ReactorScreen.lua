@@ -99,7 +99,7 @@ local function show(reactorInfo)
     drawAPI.Text(4, 19, "Fuel temperature: " .. reactorInfo.FuelTemperature .. " °C", 0x000000, 0xFFFFFF)
     drawAPI.Text(4, 21, "Waste amount: " .. reactorInfo.WasteAmount .. " mB", 0x000000, 0xFFFFFF)
 
-    local strHys = "Hysterises values : " .. reactorInfo.HysteresisMin * 100 .. " % - " .. reactorInfo.HysteresisMax * 100 .. " %"
+    local strHys = "Hysterises values : " .. reactorAPI.getHysteresisMin() * 100 .. " % - " .. reactorAPI.getHysteresisMax() * 100 .. " %"
     drawAPI.Text(21, 27, strHys, 0x000000, 0xFFFFFF)
 
     -- TODO: show status via lamps
