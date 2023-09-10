@@ -1,7 +1,5 @@
 # OpenComputers scripts
 
-## What is this?
-
 Here, I wanted to list my scripts for the [OpenComputers](https://github.com/MightyPirates/OpenComputers) for Minecraft.
 
 To my disappointment, I do not have a Minecraft world at hand now to test the scripts and the world which inspired me to create the scripts in the first place does not exist anymore.
