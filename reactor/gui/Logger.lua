@@ -5,7 +5,7 @@ local logFormat = "%d.%m.%Y %X"
 
 local logOutput = "/var/reactor/logs/"
 
-local LogStatus = {
+Logger.LogStatus = {
   INFO = 0,
   WARNING = 1,
   ERROR = 2
@@ -25,7 +25,10 @@ local function logToFile(message)
   file:close()
 end
 
-local function log(logStatus, message)
+function Logger.log(logStatus, message)
+  assert(type(logStatus) == type(LogStatus))
+  assert(type(message) == "string")
+
   local logMessage = ""
 
   if logStatus == LogStatus.INFO then
@@ -45,4 +48,4 @@ local function log(logStatus, message)
   end
 end
 
-return { LogStatus = LogStatus, log = log }
+return Logger
