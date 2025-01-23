@@ -1,6 +1,6 @@
 local program = require "Program"
 local screenManager = require "Screens/ScreenManager"
-local reactorAPI = require "ReactorAPI"
+local reactor = require "Reactor"
 local buttonAPI = require "Screens/UI/Button"
 local drawAPI = require "Screens/UI/DrawAPI"
 
@@ -12,7 +12,7 @@ local btnSwitchRight = buttonAPI.Button()
 local btnExit = buttonAPI.Button()
 
 local function init()
-    reactorAPI.init()
+    reactor.init()
     screenManager.init()
 
     btnSwitchLeft.x = 2
@@ -79,8 +79,8 @@ local function handleTouchEvent(name, address, x, y, button, player)
 end
 
 local function display()
-    reactorAPI.monitorReactor()
-    reactorInfo = reactorAPI.getReactorInfo()
+    reactor.monitor()
+    reactorInfo = reactor.getStatistics()
 
     drawToolbar()
     screenManager.showScreen(screenPointer, reactorInfo)
