@@ -53,6 +53,30 @@ local function disableForce()
     logger.log(logger.LogStatus.WARNING, "Forced mode deactivated.")
 end
 
+local function setHysteresisMin(value)
+    if value > 1 or value <= 0 or value >= hysteresis_max then
+        return
+    end
+
+    hysteresis_min = value
+end
+
+local function setHysteresisMax(value)
+    if value > 1 or value <= 0 or value <= hysteresis_min then
+        return
+    end
+
+    hysteresis_max = value
+end
+
+local function getHysteresisMin()
+    return hysteresis_min
+end
+
+local function getHysteresisMax()
+    return hysteresis_max
+end
+
 local function monitorReactor()
     if not component.isAvailable("br_reactor") or not component.isAvailable("induction_matrix") then
         state = ReactorStatus.NOT_CONNECTED
@@ -60,11 +84,7 @@ local function monitorReactor()
         return
     end
 
-    if state == ReactorStatus.FORCE_ACTIVE then
-        return
-    end
-
-    if state == ReactorStatus.FORCE_INACTIVE then
+    if state == ReactorStatus.FORCE_ACTIVE or state == ReactorStatus.FORCE_INACTIVE then
         return
     end
 
@@ -115,4 +135,6 @@ local function getReactorInfo()
     return reactorInfo
 end
 
-return { init = init, monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
+return { init = init, setHysteresisMax = setHysteresisMax, setHysteresisMin = setHysteresisMin, getHysteresisMin = getHysteresisMin,
+    forceActive = forceActive, forceInactive = forceInactive, disableForce = disableForce, getHysteresisMax = getHysteresisMax,
+    monitorReactor = monitorReactor, getReactorInfo = getReactorInfo, ReactorStatus = ReactorStatus }
