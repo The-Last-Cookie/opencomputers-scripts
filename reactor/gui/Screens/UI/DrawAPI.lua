@@ -33,10 +33,8 @@ local function VerticalLine(x, y, h, color)
 end
 
 local function BorderBox(x, y, w, h, text, borderColor)
-    HorizontalLine(x, y, w, borderColor)
-    HorizontalLine(x, y + h, w, borderColor)
-    VerticalLine(x, y, h, borderColor)
-    VerticalLine(x + w, y, h, borderColor)
+    Rectangle(x, y, w, h, borderColor)
+    Rectangle(x + 1, y + 1, w - 2, h - 2, 0xFFFFFF)
 
     Text(x + 2, y, " " .. text .. " ", 0x000000, 0xFFFFFF)
 end
