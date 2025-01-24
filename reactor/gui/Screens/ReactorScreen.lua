@@ -2,7 +2,7 @@ local drawAPI = require "Screens/UI/DrawAPI"
 local buttonAPI = require "Screens/UI/Button"
 local lampAPI = require "Screens/UI/Lamp"
 
-local reactorAPI = require "ReactorAPI"
+local reactor = require "Reactor"
 
 local Title = "Reactor Information and Control"
 
@@ -97,41 +97,41 @@ end
 
 local function handleTouchEvent(eventData)
     if buttonAPI.isClicked(btnReactorOn, eventData) then
-        reactorAPI.forceActive()
+        reactor.forceActive()
         lpOn.lightColor = 0x00FF00
         lpOff.lightColor = 0xFF0000
         lpAuto.lightColor = 0xFF0000
     elseif buttonAPI.isClicked(btnReactorOff, eventData) then
-        reactorAPI.forceInactive()
+        reactor.forceInactive()
         lpOff.lightColor = 0x00FF00
         lpOn.lightColor = 0xFF0000
         lpAuto.lightColor = 0xFF0000
     elseif buttonAPI.isClicked(btnReactorAuto, eventData) then
-        reactorAPI.disableForce()
+        reactor.disableForce()
         lpAuto.lightColor = 0x00FF00
         lpOn.lightColor = 0xFF0000
         lpOff.lightColor = 0xFF0000
     elseif buttonAPI.isClicked(btnHysMinIncrease, eventData) then
-        reactorAPI.setHysteresisMin(reactorAPI.getHysteresisMin() + 0.1)
+        reactor.setHysteresisMin(reactor.getHysteresisMin() + 0.1)
     elseif buttonAPI.isClicked(btnHysMinDecrease, eventData) then
-        reactorAPI.setHysteresisMin(reactorAPI.getHysteresisMin() - 0.1)
+        reactor.setHysteresisMin(reactor.getHysteresisMin() - 0.1)
     elseif buttonAPI.isClicked(btnHysMaxIncrease, eventData) then
-        reactorAPI.setHysteresisMax(reactorAPI.getHysteresisMax() + 0.1)
+        reactor.setHysteresisMax(reactor.getHysteresisMax() + 0.1)
     elseif buttonAPI.isClicked(btnHysMaxDecrease, eventData) then
-        reactorAPI.setHysteresisMax(reactorAPI.getHysteresisMax() - 0.1)
+        reactor.setHysteresisMax(reactor.getHysteresisMax() - 0.1)
     end
 end
 
 local function show(reactorInfo)
     drawAPI.BorderBox(2, 7, 44, 18, "Information", 0x5A5A5A)
 
-    if reactorInfo.Status == reactorAPI.ReactorStatus.NOT_CONNECTED then
+    if reactorInfo.Status == reactor.ReactorStatus.NOT_CONNECTED then
         drawAPI.Text(4, 9, "Reactor status: Not connected", 0x000000, 0xFFFFFF)
-    elseif reactorInfo.Status == reactorAPI.ReactorStatus.FORCE_ACTIVE then
+    elseif reactorInfo.Status == reactor.ReactorStatus.FORCE_ACTIVE then
         drawAPI.Text(4, 9, "Reactor status: Active (force)", 0x000000, 0xFFFFFF)
-    elseif reactorInfo.Status == reactorAPI.ReactorStatus.FORCE_INACTIVE then
+    elseif reactorInfo.Status == reactor.ReactorStatus.FORCE_INACTIVE then
         drawAPI.Text(4, 9, "Reactor status: Inactive (force)", 0x000000, 0xFFFFFF)
-    elseif reactorInfo.Status == reactorAPI.ReactorStatus.ACTIVE then
+    elseif reactorInfo.Status == reactor.ReactorStatus.ACTIVE then
         drawAPI.Text(4, 9, "Reactor status: Active", 0x000000, 0xFFFFFF)
     else
         drawAPI.Text(4, 9, "Reactor status: Inactive", 0x000000, 0xFFFFFF)
@@ -156,7 +156,7 @@ local function show(reactorInfo)
     lampAPI.draw(lpAuto)
 
     drawAPI.VerticalLine(19, 29, 9, 0x5A5A5A)
-    local strHys = "Hysterises values : " .. reactorAPI.getHysteresisMin() * 100 .. " % - " .. reactorAPI.getHysteresisMax() * 100 .. " %"
+    local strHys = "Hysterises values : " .. reactor.getHysteresisMin() * 100 .. " % - " .. reactor.getHysteresisMax() * 100 .. " %"
     drawAPI.Text(21, 29, strHys, 0x000000, 0xFFFFFF)
 
     buttonAPI.draw(btnHysMinIncrease)
