@@ -120,19 +120,10 @@ function Reactor.getStatistics()
         Energy = matrix.getEnergy(),
         MaxEnergy = matrix.getMaxEnergy(),
         EnergyDelta = calculateEnergyPerSecond(),
-<<<<<<< HEAD:reactor/gui/ReactorAPI.lua
-        CasingTemperature = reactor.getCasingTemperature(),
-        FuelAmount = reactor.getFuelAmount(),
-        FuelTemperature = reactor.getFuelTemperature(),
-        WasteAmount = reactor.getWasteAmount(),
-        HysteresisMin = hysteresis_min,
-        HysteresisMax = hysteresis_max
-=======
         CasingTemperature = br_reactor.getCasingTemperature(),
         FuelAmount = br_reactor.getFuelAmount(),
         FuelTemperature = br_reactor.getFuelTemperature(),
         WasteAmount = br_reactor.getWasteAmount()
->>>>>>> lua-convention:reactor/gui/Reactor.lua
     }
 
     return reactorInfo
