@@ -34,7 +34,7 @@ end
 
 local function BorderBox(x, y, w, h, text, borderColor)
     Rectangle(x, y, w, h, borderColor)
-    Rectangle(x + 1, y + 1, w - 2, h - 2, 0xFFFFFF)
+    Rectangle(x + 1, y + 1, w - 2, h - 2, 0x000000)
 
     Text(x + 2, y, " " .. text .. " ", 0x000000, 0xFFFFFF)
 end
