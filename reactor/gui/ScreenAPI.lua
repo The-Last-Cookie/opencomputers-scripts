@@ -1,4 +1,5 @@
 local program = require "Program"
+local reactor = require "Reactor"
 local screenManager = require "Screens/ScreenManager"
 local buttonAPI = require "Screens/UI/Button"
 local drawAPI = require "Screens/UI/DrawAPI"
