@@ -1,6 +1,5 @@
 local program = require "Program"
 local screenManager = require "Screens/ScreenManager"
-local reactor = require "Reactor"
 local buttonAPI = require "Screens/UI/Button"
 local drawAPI = require "Screens/UI/DrawAPI"
 
@@ -79,11 +78,8 @@ local function handleTouchEvent(name, address, x, y, button, player)
 end
 
 local function display()
-    reactor.monitor()
-    reactorInfo = reactor.getStatistics()
-
     drawToolbar()
-    screenManager.showScreen(screenPointer, reactorInfo)
+    screenManager.showScreen(screenPointer)
 end
 
 return { init = init, handleTouchEvent = handleTouchEvent, display = display }

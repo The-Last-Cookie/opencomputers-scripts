@@ -83,13 +83,13 @@ local function init()
     lpOn.lightColor = 0xFF0000
 
     lpOff.x = 15
-    lpOff.y = 34
+    lpOff.y = 33
     lpOff.width = 3
     lpOff.height = 3
     lpOff.lightColor = 0xFF0000
 
     lpAuto.x = 15
-    lpAuto.y = 39
+    lpAuto.y = 37
     lpAuto.width = 3
     lpAuto.height = 3
     lpAuto.lightColor = 0xFF0000
@@ -122,7 +122,10 @@ local function handleTouchEvent(eventData)
     end
 end
 
-local function show(reactorInfo)
+local function show()
+    reactor.monitor() -- move to update function or in main loop (after framework rewriting)
+    reactorInfo = reactor.getStatistics()
+
     drawAPI.BorderBox(2, 7, 44, 18, "Information", 0x5A5A5A)
 
     if reactorInfo.Status == reactor.ReactorStatus.NOT_CONNECTED then
@@ -145,7 +148,7 @@ local function show(reactorInfo)
     drawAPI.Text(4, 21, "Fuel temperature: " .. reactorInfo.FuelTemperature .. " °C", 0x000000, 0xFFFFFF)
     drawAPI.Text(4, 23, "Waste amount: " .. reactorInfo.WasteAmount .. " mB", 0x000000, 0xFFFFFF)
 
-    drawAPI.BorderBox(2, 27, 44, 10, "Controls", 0x5A5A5A)
+    drawAPI.BorderBox(2, 27, 58, 15, "Controls", 0x5A5A5A)
 
     buttonAPI.draw(btnReactorOn)
     buttonAPI.draw(btnReactorOff)
@@ -155,7 +158,7 @@ local function show(reactorInfo)
     lampAPI.draw(lpOff)
     lampAPI.draw(lpAuto)
 
-    drawAPI.VerticalLine(19, 29, 9, 0x5A5A5A)
+    drawAPI.VerticalLine(19, 29, 11, 0x5A5A5A)
     local strHys = "Hysterises values : " .. reactor.getHysteresisMin() * 100 .. " % - " .. reactor.getHysteresisMax() * 100 .. " %"
     drawAPI.Text(21, 29, strHys, 0x000000, 0xFFFFFF)
 

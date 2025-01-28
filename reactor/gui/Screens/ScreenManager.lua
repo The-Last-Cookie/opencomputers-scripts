@@ -27,12 +27,12 @@ local function handleTouchEvent(screenPointer, eventData)
     screens[screenPointer].handleTouchEvent(eventData)
 end
 
-local function showScreen(screenPointer, screenData)
+local function showScreen(screenPointer)
     if screenPointer <= 0 or screenPointer > ScreenCount then
         return
     end
 
-    screens[screenPointer].show(screenData)
+    screens[screenPointer].show()
 end
 
 return { init = init, drawScreenTitle = drawScreenTitle, ScreenCount = ScreenCount, handleTouchEvent = handleTouchEvent, showScreen = showScreen }
