@@ -1,6 +1,8 @@
-IsRunning = true
+local Program = {}
+
+Program.IsRunning = true
 
 -- screen refresh time in seconds
-local ScreenRefreshTime = 2
+Program.ScreenRefreshTime = 2
 
-return { IsRunning = IsRunning, ScreenRefreshTime = ScreenRefreshTime }
+return Program
