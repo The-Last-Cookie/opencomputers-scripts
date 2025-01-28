@@ -30,7 +30,7 @@ function Reactor.init()
     previousEnergy = matrix.getEnergy()
 end
 
-function Reactor.calculateEnergyPerSecond()
+local function calculateEnergyPerSecond()
     return (matrix.getEnergy() - previousEnergy) / program.ScreenRefreshTime
 end
 
