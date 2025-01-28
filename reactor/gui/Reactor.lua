@@ -20,7 +20,7 @@ Reactor.ReactorStatus = {
     FORCE_ACTIVE = 4
 }
 
-local state = ReactorStatus.NOT_CONNECTED
+local state = Reactor.ReactorStatus.NOT_CONNECTED
 
 local previousEnergy = 0
 
@@ -35,22 +35,22 @@ function Reactor.calculateEnergyPerSecond()
 end
 
 function Reactor.forceActive()
-    state = ReactorStatus.FORCE_ACTIVE
+    state = Reactor.ReactorStatus.FORCE_ACTIVE
     br_reactor.setActive(true)
     logger.log(logger.LogStatus.WARNING, "Reactor now in forced active mode. It won't turn off without manual assistance.")
 end
 
 function Reactor.forceInactive()
-    state = ReactorStatus.FORCE_INACTIVE
+    state = Reactor.ReactorStatus.FORCE_INACTIVE
     br_reactor.setActive(false)
     logger.log(logger.LogStatus.WARNING, "Reactor now in forced inactive mode. It won't turn on without manual assistance.")
 end
 
 function Reactor.disableForce()
-    if state == ReactorStatus.FORCE_ACTIVE then
-        state = ReactorStatus.ACTIVE
-    elseif state == ReactorStatus.FORCE_INACTIVE then
-        state = ReactorStatus.INACTIVE
+    if state == Reactor.ReactorStatus.FORCE_ACTIVE then
+        state = Reactor.ReactorStatus.ACTIVE
+    elseif state == Reactor.ReactorStatus.FORCE_INACTIVE then
+        state = Reactor.ReactorStatus.INACTIVE
     end
     logger.log(logger.LogStatus.WARNING, "Forced mode deactivated.")
 end
@@ -81,12 +81,12 @@ end
 
 function Reactor.monitor()
     if not component.isAvailable("br_reactor") or not component.isAvailable("induction_matrix") then
-        state = ReactorStatus.NOT_CONNECTED
+        state = Reactor.ReactorStatus.NOT_CONNECTED
         logger.log(logger.LogStatus.ERROR, "Exiting program with status 1")
         return
     end
 
-    if state == ReactorStatus.FORCE_ACTIVE or state == ReactorStatus.FORCE_INACTIVE then
+    if state == Reactor.ReactorStatus.FORCE_ACTIVE or state == Reactor.ReactorStatus.FORCE_INACTIVE then
         return
     end
 
@@ -105,9 +105,9 @@ function Reactor.monitor()
     end
 
     if br_reactor.getActive() then
-        state = ReactorStatus.ACTIVE
+        state = Reactor.ReactorStatus.ACTIVE
     else
-        state = ReactorStatus.INACTIVE
+        state = Reactor.ReactorStatus.INACTIVE
     end
 end
 
