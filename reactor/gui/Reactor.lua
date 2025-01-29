@@ -90,14 +90,16 @@ function Reactor.monitor()
         return
     end
 
-    if matrix.getEnergy() / matrix.getMaxEnergy() >= hysteresis_max then
+    local quantity = matrix.getEnergy() / matrix.getMaxEnergy() -- relative value
+
+    if quantity >= hysteresis_max then
         if br_reactor.getActive() then
             br_reactor.setActive(false)
             logger.log(logger.LogStatus.INFO, "Maximum hysterises value reached. Turning reactor off.")
         end
     end
 
-    if matrix.getEnergy() / matrix.getMaxEnergy() <= hysteresis_min then
+    if quantity <= hysteresis_min then
         if not br_reactor.getActive() then
             br_reactor.setActive(true)
             logger.log(logger.LogStatus.INFO, "Minimum hysterises value reached. Turning reactor on.")
