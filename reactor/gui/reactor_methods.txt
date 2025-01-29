@@ -1,0 +1,68 @@
+For getting the methods and their documentation, component can be useful: https://ocdoc.cil.li/api:component
+e.g. component.doc() or component.methods()
+
+Notice: Using too many at once *may* impact performance when drawing on screen in short intervals!
+
+Reactor: br_reactor
+
+Methods:
+
+help
+isMethodAvailable
+
+getMaximumCoordinate
+getMinimumCoordinate
+getMultiblockAssembled
+
+mbGetMaximumCoordinate
+mbGetMinimumCoordinate
+mbGetMultiblockControllerTypeName
+mbIsAssembled
+mbIsConnected
+mbIsDisassembled
+mbIsPaused
+
+getActive() -> bool
+setActive(bool)
+getConnected
+isActivelyCooled
+
+getCasingTemperature() -> integer in °C
+
+getControlRodLevel
+getControlRodLocation
+getControlRodName
+getControlRodsLevels
+getNumberOfControlRods
+setAllControlRodLevels
+setControlRodLevel
+setControlRodName
+setControlRodsLevels
+
+getCoolantAmount
+getCoolantAmountMax
+getCoolantFluidStats
+getCoolantType
+
+getEnergyCapacity
+getEnergyProducedLastTick() -> integer in RF (/t)
+getEnergyStats
+getEnergyStored() -> integer in RF
+
+getFuelAmount() -> integer in mB
+getFuelAmountMax() -> integer in mB
+getFuelConsumedLastTick() -> integer in mB (/t)
+getFuelReactivity() -> integer in %
+getFuelStats
+getFuelTemperature() -> integer in °C
+
+getHotFluidAmount
+getHotFluidAmountMax
+getHotFluidProducedLastTick
+getHotFluidStats
+getHotFluidType
+
+getWasteAmount() -> integer in mB
+
+doEjectFuel
+doEjectWaste
