@@ -10,7 +10,7 @@ local lightColor = 0xFFFFFF
 
 local function draw(self)
     drawAPI.Rectangle(self.x, self.y, self.width, self.height, self.backgroundColor)
-    drawAPI.Rectangle(self.x + 1, self.y + 1, self.width - 1, self.height - 1, self.lightColor)
+    drawAPI.Rectangle(self.x + 1, self.y + 1, self.width - 2, self.height - 2, self.lightColor)
 end
 
 local function Lamp()
