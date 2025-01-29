@@ -5,7 +5,9 @@ local logFormat = "%d.%m.%Y %X"
 
 local logOutput = "/var/reactor/logs/"
 
-local LogStatus = {
+local Logger = {}
+
+Logger.LogStatus = {
   INFO = 0,
   WARNING = 1,
   ERROR = 2
@@ -25,24 +27,27 @@ local function logToFile(message)
   file:close()
 end
 
-local function log(logStatus, message)
+function Logger.log(logStatus, message)
+  assert(type(logStatus) == "number")
+  assert(type(message) == "string")
+
   local logMessage = ""
 
-  if logStatus == LogStatus.INFO then
+  if logStatus == Logger.LogStatus.INFO then
     logMessage = "[INFO] " .. os.date(logFormat) .. " " .. message
   end
 
-  if logStatus == LogStatus.WARNING then
+  if logStatus == Logger.LogStatus.WARNING then
     logMessage = "[WARNING] " .. os.date(logFormat) .. " " .. message
   end
 
-  if logStatus == LogStatus.ERROR then
+  if logStatus == Logger.LogStatus.ERROR then
     logMessage = "[ERROR] " .. os.date(logFormat) .. " " .. message
   end
 
-  if logMessage ~= "" then
+  if logMessage then
     logToFile(logMessage)
   end
 end
 
-return { LogStatus = LogStatus, log = log }
+return Logger
