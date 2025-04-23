@@ -17,32 +17,31 @@ end
 
 function API.clamp(n, min, max) return math.min(math.max(n, min), max) end
 
-function API.newButton(ID, label, x, y, width, height, func, params, oncolor, offcolor, toggle)
+function API.newButton(ID, text, textColor, buttonColor, x, y, width, height, func, params)
     local table = {}
     table["type"] = "button"
-    table["label"] = label
+    table["text"] = text
+    table["textColor"] = labelColor
+    table["buttonColor"] = buttonColor
     table["x"] = x
     table["y"] = y
     table["width"] = width
     table["height"] = height
-    table["active"] = false
-    table["func"] = func -- is action as a name better?
+    table["func"] = func
     table["params"] = params
-    table["oncolor"] = oncolor
-    table["offcolor"] = offcolor
-    table["toggle"] = toggle
     objects[ID] = table
 end
 
-function API.newLabel(ID, label, x, y, width, height, color)
+function API.newLabel(ID, text, x, y, width, height, backgroundColor, textColor)
     local table = {}
     table["type"] = "label"
-    table["label"] = label
+    table["text"] = text
     table["x"] = x
     table["y"] = y
     table["width"] = width
     table["height"] = height
-    table["color"] = color
+    table["backgroundColor"] = backgroundColor
+    table["textColor"] = textColor
     objects[ID] = table
 end
     
@@ -71,68 +70,50 @@ end
 function API.draw(ID)
     data = objects[ID]
     local objectType = data["type"]
-    local label = data["label"] -- move to local context because it's not in every ui element
     local x = data["x"]
     local y = data["y"]
     local width = data["width"]
     local height = data["height"]
 
     if objectType == "button" then
-        local drawColor = 0x000000
-        if data["active"] == true then
-            drawColor = data["oncolor"]
-        else
-            drawColor = data["offcolor"]
-        end
-        gpu.setBackground(drawColor, false)
+        local buttonColor = data["buttonColor"]
+        local text = data["text"]
+        local textColor = data["textColor"]
+
+        gpu.setBackground(buttonColor, false)
+        gpu.setForeground(textColor, false)
         gpu.fill(x, y, width, height, " ")
-        gpu.set((x+width/2)-string.len(label)/2, y+height/2, label)
-        gpu.setBackground(colors.black, true)
+        gpu.set((x + width/2) - string.len(text)/2, y + height/2, text)
 
     elseif objectType == "label" then
-        gpu.setBackground(data["color"], false)
+        local text = data["text"]
+        local textColor = data["textColor"]
+        local backgroundColor = data["backgroundColor"]
+
+        gpu.setBackground(backgroundColor, false)
+        gpu.setForeground(textColor, false)
         gpu.fill(x, y, width, height, " ")
-        gpu.set((x+width/2)-string.len(label)/2, y+height/2, label)
-        gpu.setBackground(colors.black, true)
+        gpu.set((x + width/2) - string.len(text)/2, y + height/2, text)
 
     elseif objectType == "bar" then
         gpu.setBackground(data["color2"], false)
         gpu.fill(x, y, width, height, " ")
-        local amount = math.floor((width/100)*data["value"])
+        local amount = math.floor((width/100) * data["value"])
         gpu.setBackground(data["color1"], false)
         gpu.fill(x, y, amount, height, " ")
-        gpu.setBackground(colors.black, true)
     end
+
+    gpu.setBackground(colors.black, true)
+    gpu.setForeground(colors.white, true)
 end
 
-function API.toggleButton(ID)
-    local objectType = objects[ID]["type"]
-    if not objectType == "button" then return end
-    objects[ID]["active"] = not objects[ID]["active"]
-    API.draw(ID)
-end
-
--- useable for my case?
-function API.flashButton(ID)
-    local objectType = objects[ID]["type"]
-    if not objectType == "button" then return end
-    API.toggleButton(ID)
-    os.sleep(0.15)
-    API.toggleButton(ID)
-end
-
-function API.getButtonState(ID)
-    local objectType = objects[ID]["type"]
-    if not objectType == "button" then return end
-    return objects[ID]["active"]
-end
 
 function API.getButtonClicked(x, y)
     for ID, data in pairs(objects) do
-		-- check with my own algorithm
-        local xmax = data["x"]+data["width"]-1
-        local ymax = data["y"]+data["height"]-1
         if data["type"] == "button" then
+            local xmax = data["x"] + data["width"] - 1
+            local ymax = data["y"] + data["height"] - 1
+
             if x >= data["x"] and x <= xmax then
                 if y >= data["y"] and y <= ymax then
                     return ID
@@ -163,27 +144,23 @@ function API.handleTouchEvent(x, y)
     local objectType = objects[ID]["type"]
     if not objectType == "button" then return end
 
-    if objects[ID]["toggle"] == true then
-        API.toggleButton(ID)
-        API.activateButton(ID)
-    else
-        --API.flashButton(ID)
-        API.activateButton(ID)
-    end
+    API.activateButton(ID)
 end
 
 function API.setBarValue(ID, value)
     local objectType = objects[ID]["type"]
     if not objectType == "bar" then return end
+
     objects[ID]["value"] = API.clamp(value, 0, 100)
     API.draw(ID)
 end
 
-function API.setLabelText(ID, label)
+function API.setLabelText(ID, text)
     local objectType = objects[ID]["type"]
     if not objectType == "label" or not objectType == "button" then return end
-    if not label then label = " " end
-    objects[ID]["label"] = label
+    if not text then text = " " end
+
+    objects[ID]["text"] = text
     API.draw(ID)
 end
 
