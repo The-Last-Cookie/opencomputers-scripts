@@ -1,15 +1,9 @@
-local Title = "Energy consumption"
+local ReactorScreen = {}
 
-local function init()
+function ReactorScreen.init()
 end
 
-local function handleTouchEvent(eventData)
-    -- TODO: handle clicking buttons
-    -- eventData: name, address, x, y, button, player
+function ReactorScreen.update()
 end
 
-local function show(reactorInfo)
-    -- TODO: add GUI
-end
-
-return { Title = Title, init = init, handleTouchEvent = handleTouchEvent, show = show }
+return ReactorScreen
