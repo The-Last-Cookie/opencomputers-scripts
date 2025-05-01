@@ -44,7 +44,7 @@ function API.newLabel(ID, text, x, y, width, height, backgroundColor, textColor)
     table["textColor"] = textColor
     objects[ID] = table
 end
-    
+
 function API.newBar(ID, x, y, width, height, color1, color2, value)
     local table = {}
     table["type"] = "bar"
@@ -63,7 +63,6 @@ function API.removeObject(ID)
 end
 
 function API.clearAllObjects()
-    API.clearScreen()
     objects = {}
 end
 
@@ -132,7 +131,6 @@ function API.activateButton(ID)
 end
 
 function API.updateAll()
-    API.clearScreen()
     for ID, data in pairs(objects) do
         API.draw(ID)
     end
