@@ -45,7 +45,7 @@ function API.newLabel(ID, text, x, y, width, height, backgroundColor, textColor)
     objects[ID] = table
 end
 
-function API.newBorderBox(ID, x, y, width, height, borderColor, innerColor)
+function API.newBorderBox(ID, x, y, width, height, borderColor, innerColor, text, textColor)
     local table = {}
     table["type"] = "borderBox"
     table["x"] = x
@@ -54,6 +54,8 @@ function API.newBorderBox(ID, x, y, width, height, borderColor, innerColor)
     table["height"] = height
     table["borderColor"] = borderColor
     table["innerColor"] = innerColor
+    table["text"] = text
+    table["textColor"] = textColor
 end
 
 function API.newBar(ID, x, y, width, height, color1, color2, value)
@@ -109,10 +111,15 @@ function API.draw(ID)
         local borderColor = data["borderColor"]
         local innerColor = data["innerColor"]
 
+        -- Rectangle
         gpu.setBackground(borderColor, false)
         gpu.fill(x, y, width, height, " ")
         gpu.setBackground(innerColor, false)
         gpu.fill(x + 1, y + 1, width - 2, height - 2, " ")
+
+        -- Label
+        gpu.setForeground(textColor, false)
+        gpu.set(x + 2, y, " " .. text .. " ")
 
     elseif objectType == "bar" then
         gpu.setBackground(data["color2"], false)
