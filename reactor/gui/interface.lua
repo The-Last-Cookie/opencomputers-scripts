@@ -53,7 +53,7 @@ function API.newBorderBox(ID, x, y, width, height, borderColor, innerColor, text
     table["width"] = width
     table["height"] = height
     table["borderColor"] = borderColor
-    table["innerColor"] = innerColor
+    table["innerColor"] = innerColor -- background color for text label
     table["text"] = text
     table["textColor"] = textColor
 end
@@ -112,12 +112,15 @@ function API.draw(ID)
         local innerColor = data["innerColor"]
 
         -- Rectangle
+        -- 4 draw calls (each box side), so elements in the box don't get overdrawn (draw order is random)
         gpu.setBackground(borderColor, false)
-        gpu.fill(x, y, width, height, " ")
-        gpu.setBackground(innerColor, false)
-        gpu.fill(x + 1, y + 1, width - 2, height - 2, " ")
+        gpu.fill(x, y, width, 1, " ")
+        gpu.fill(x, y, 1, height, " ")
+        gpu.fill(x + height, y, width, 1, " ")
+        gpu.fill(x, y + width, 1, height, " ")
 
         -- Label
+        gpu.setBackground(innerColor, false)
         gpu.setForeground(textColor, false)
         gpu.set(x + 2, y, " " .. text .. " ")
 
