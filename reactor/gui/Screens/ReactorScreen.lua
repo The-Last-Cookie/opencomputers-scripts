@@ -30,6 +30,26 @@ function turnReactorAuto()
 	interface.setLampColor("lpAuto", 0x00FF00)
 end
 
+function increaseHysMin(value)
+	local hysMin = reactor.getHysteresisMin()
+	reactor.setHysteresisMin(hysMin + value)
+end
+
+function decreaseHysMin(value)
+	local hysMin = reactor.getHysteresisMin()
+	reactor.setHysteresisMin(hysMin - value)
+end
+
+function increaseHysMax(value)
+	local hysMax = reactor.getHysteresisMax()
+	reactor.setHysteresisMax(hysMax + value)
+end
+
+function decreaseHysMax(value)
+	local hysMax = reactor.getHysteresisMax()
+	reactor.setHysteresisMax(hysMax - value)
+end
+
 function ReactorScreen.init()
 	interface.newLabel("title", "Reactor Information and Control", 20, 3, 0xFFFFFF)
 
@@ -46,10 +66,10 @@ function ReactorScreen.init()
 	interface.newLamp("lpOff", 15, 33, 3, 3, 0x5A5A5A, 0xFF0000)
 	interface.newLamp("lpAuto", 15, 37, 3, 3, 0x5A5A5A, 0xFF0000)
 
-	interface.newButton("btnHysMinIncrease", "Min + 10", 0xFFFFFF, 0x0000FF, 21, 31, 10, 3, reactor.setHysteresisMin, reactor.getHysteresisMin() + 0.1)
-	interface.newButton("btnHysMinDecrease", "Min - 10", 0xFFFFFF, 0x0000FF, 21, 35, 10, 3, reactor.setHysteresisMin, reactor.getHysteresisMin() - 0.1)
-	interface.newButton("btnHysMaxIncrease", "Max + 10", 0xFFFFFF, 0x0000FF, 32, 31, 10, 3, reactor.setHysteresisMax, reactor.getHysteresisMax() + 0.1)
-	interface.newButton("btnHysMaxDecrease", "Max - 10", 0xFFFFFF, 0x0000FF, 32, 35, 10, 3, reactor.setHysteresisMax, reactor.getHysteresisMax() - 0.1)
+	interface.newButton("btnHysMinIncrease", "Min + 10", 0xFFFFFF, 0x0000FF, 21, 31, 10, 3, increaseHysMin, 0.1)
+	interface.newButton("btnHysMinDecrease", "Min - 10", 0xFFFFFF, 0x0000FF, 21, 35, 10, 3, decreaseHysMin, 0.1)
+	interface.newButton("btnHysMaxIncrease", "Max + 10", 0xFFFFFF, 0x0000FF, 32, 31, 10, 3, increaseHysMax, 0.1)
+	interface.newButton("btnHysMaxDecrease", "Max - 10", 0xFFFFFF, 0x0000FF, 32, 35, 10, 3, decreaseHysMax, 0.1)
 
 	interface.newLabel("reactorStatus", "Reactor status: Initializing", 4, 9, 0xFFFFFF)
 	interface.newLabel("currEnergy", "Current energy: ", 4, 11, 0xFFFFFF)
