@@ -208,4 +208,12 @@ function API.setLabelText(ID, text)
     API.draw(ID)
 end
 
+function API.setLampColor(ID, lightColor)
+    local objectType = objects[ID]["type"]
+    if not objectType == "lamp" then return end
+
+    objects[ID]["lightColor"] = lightColor
+    API.draw(ID)
+end
+
 return API
