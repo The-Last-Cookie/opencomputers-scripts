@@ -157,6 +157,17 @@ function API.draw(ID)
         else
             gpu.fill(x, y, length, 1, " ")
 
+    elseif objectType == "lamp" then
+        local width = data["width"]
+        local height = data["height"]
+        local lightColor = data["lightColor"]
+        local backgroundColor = data["backgroundColor"]
+
+        gpu.setBackground(backgroundColor, false)
+        gpu.fill(x, y, width, height, " ")
+        gpu.setBackground(lightColor, false)
+        gpu.fill(x + 1, y + 1, width - 2, height - 2, " ")
+
     elseif objectType == "bar" then
         gpu.setBackground(data["color2"], false)
         gpu.fill(x, y, width, height, " ")
