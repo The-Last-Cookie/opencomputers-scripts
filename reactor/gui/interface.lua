@@ -32,15 +32,12 @@ function API.newButton(ID, text, textColor, buttonColor, x, y, width, height, fu
     objects[ID] = table
 end
 
-function API.newLabel(ID, text, x, y, width, height, backgroundColor, textColor)
+function API.newLabel(ID, text, x, y, textColor)
     local table = {}
     table["type"] = "label"
     table["text"] = text
     table["x"] = x
     table["y"] = y
-    table["width"] = width
-    table["height"] = height
-    table["backgroundColor"] = backgroundColor
     table["textColor"] = textColor
     objects[ID] = table
 end
@@ -70,7 +67,15 @@ function API.newLine(ID, x, y, length, direction, color)
     objects[ID] = table
 end
 
-function API.newLamp()
+function API.newLamp(ID, x, y, width, height, backgroundColor, lightColor)
+    local table = {}
+    table["type"] = "lamp"
+    table["x"] = x
+    table["y"] = y
+    table["width"] = width
+    table["height"] = height
+    table["backgroundColor"] = backgroundColor
+    table["lightColor"] = lightColor
     objects[ID] = table
 end
 
@@ -100,10 +105,10 @@ function API.draw(ID)
     local objectType = data["type"]
     local x = data["x"]
     local y = data["y"]
-    local width = data["width"]
-    local height = data["height"]
 
     if objectType == "button" then
+        local width = data["width"]
+        local height = data["height"]
         local buttonColor = data["buttonColor"]
         local text = data["text"]
         local textColor = data["textColor"]
@@ -116,14 +121,14 @@ function API.draw(ID)
     elseif objectType == "label" then
         local text = data["text"]
         local textColor = data["textColor"]
-        local backgroundColor = data["backgroundColor"]
 
-        gpu.setBackground(backgroundColor, false)
         gpu.setForeground(textColor, false)
-        gpu.fill(x, y, width, height, " ")
-        gpu.set((x + width/2) - string.len(text)/2, y + height/2, text)
+        gpu.fill(x, y, string.len(text), 1, " ")
+        gpu.set(x, y, text)
     
     elseif objectType == "borderBox" then
+        local width = data["width"]
+        local height = data["height"]
         local borderColor = data["borderColor"]
         local innerColor = data["innerColor"]
 
@@ -140,7 +145,7 @@ function API.draw(ID)
         gpu.setForeground(textColor, false)
         gpu.set(x + 2, y, " " .. text .. " ")
 
-    elseif type == "line" then
+    elseif objectType == "line" then
         local color = data["color"]
         local length = data["length"]
         local direction = data["direction"]
