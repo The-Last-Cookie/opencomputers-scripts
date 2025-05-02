@@ -25,6 +25,8 @@ local state = Reactor.ReactorStatus.NOT_CONNECTED
 local previousEnergy = 0
 
 function Reactor.init()
+    Reactor.monitor()
+
     -- previousEnergy needs to be saved once beforehand, so that
     -- calculateEnergyPerSecond returns the correct value
     previousEnergy = matrix.getEnergy()
