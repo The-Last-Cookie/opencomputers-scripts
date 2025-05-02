@@ -21,7 +21,7 @@ while program.IsRunning do
     local name, address, x, y, button, player = event.pull(program.ScreenRefreshTime, "touch")
 
     if x and y then
-        interface.processClick(x,y)
+        interface.handleTouchEvent(x, y)
     end
 
     reactor.monitor()

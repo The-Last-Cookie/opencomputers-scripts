@@ -1,7 +1,6 @@
 -- Original by TankNut: https://github.com/OpenPrograms/MiscPrograms/blob/master/TankNut/interface.lua
 
 local component = require("component")
-local colors = require("colors")
 
 local objects = {}
 local API = {}
@@ -10,8 +9,8 @@ local gpu = component.gpu
 local maxWidth, maxHeight = gpu.getResolution()
 
 function API.clearScreen()
-    gpu.setForeground(colors.white, true)
-    gpu.setBackground(colors.black, true)
+    gpu.setForeground(0xFFFFFF, false)
+    gpu.setBackground(0x000000, false)
     gpu.fill(1, 1, maxWidth, maxHeight, " ")
 end
 
@@ -21,7 +20,7 @@ function API.newButton(ID, text, textColor, buttonColor, x, y, width, height, fu
     local table = {}
     table["type"] = "button"
     table["text"] = text
-    table["textColor"] = labelColor
+    table["textColor"] = textColor
     table["buttonColor"] = buttonColor
     table["x"] = x
     table["y"] = y
@@ -118,14 +117,16 @@ function API.draw(ID)
         local height = data["height"]
         local borderColor = data["borderColor"]
         local innerColor = data["innerColor"]
+        local text = data["text"]
+        local textColor = data["textColor"]
 
         -- Rectangle
         -- 4 draw calls (each box side), so elements in the box don't get overdrawn (draw order is random)
         gpu.setBackground(borderColor, false)
         gpu.fill(x, y, width, 1, " ")
         gpu.fill(x, y, 1, height, " ")
-        gpu.fill(x + height, y, width, 1, " ")
-        gpu.fill(x, y + width, 1, height, " ")
+        gpu.fill(x, y + height, width + 1, 1, " ")
+        gpu.fill(x + width, y, 1, height + 1, " ")
 
         -- Label
         gpu.setBackground(innerColor, false)
@@ -143,6 +144,7 @@ function API.draw(ID)
             gpu.fill(x, y, 1, length, " ")
         else
             gpu.fill(x, y, length, 1, " ")
+        end
 
     elseif objectType == "lamp" then
         local width = data["width"]
@@ -156,8 +158,8 @@ function API.draw(ID)
         gpu.fill(x + 1, y + 1, width - 2, height - 2, " ")
     end
 
-    gpu.setBackground(colors.black, true)
-    gpu.setForeground(colors.white, true)
+    gpu.setForeground(0xFFFFFF, false)
+    gpu.setBackground(0x000000, false)
 end
 
 
@@ -201,7 +203,7 @@ end
 
 function API.setLabelText(ID, text)
     local objectType = objects[ID]["type"]
-    if not objectType == "label" or not objectType == "button" then return end
+    if not objectType == "label" and not objectType == "button" then return end
     if not text then text = " " end
 
     objects[ID]["text"] = text

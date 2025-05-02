@@ -93,9 +93,6 @@ function ReactorScreen.update()
 		interface.setLabelText("reactorStatus", labelText)
     end
 
-	-- control box width is 58 - 4 (border line + extra padding from the border)
-	local maxTextWidth = 58
-
 	-- TODO: DataTable class for getting strings?
 	interface.setLabelText("currEnergy", adjustToMaxWidth(maxTextWidth, "Current energy: ", reactorInfo.Energy .. " RF"))
 	interface.setLabelText("maxEnergy", adjustToMaxWidth(maxTextWidth, "Maximum energy: ", reactorInfo.MaxEnergy .. " RF"))
@@ -104,6 +101,9 @@ function ReactorScreen.update()
 	interface.setLabelText("fuelAmount", adjustToMaxWidth(maxTextWidth, "Fuel amount: ", reactorInfo.FuelAmount .. " mB"))
 	interface.setLabelText("fuelTemp", adjustToMaxWidth(maxTextWidth, "Fuel temperature: ", reactorInfo.FuelTemperature .. " °C"))
 	interface.setLabelText("wasteAmount", adjustToMaxWidth(maxTextWidth, "Waste amount: ", reactorInfo.WasteAmount .. " mB"))
+
+	-- control box width is 38 - 4 (border line + extra padding from the border)
+	local maxTextWidth = 38
 
 	local strHys = reactor.getHysteresisMin() * 100 .. " % - " .. reactor.getHysteresisMax() * 100 .. " %"
 	interface.setLabelText("hysValues", adjustToMaxWidth(maxTextWidth, "Hysterises values: ", strHys))
