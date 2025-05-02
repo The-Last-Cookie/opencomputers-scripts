@@ -79,19 +79,6 @@ function API.newLamp(ID, x, y, width, height, backgroundColor, lightColor)
     objects[ID] = table
 end
 
-function API.newBar(ID, x, y, width, height, color1, color2, value)
-    local table = {}
-    table["type"] = "bar"
-    table["x"] = x
-    table["y"] = y
-    table["width"] = width
-    table["height"] = height
-    table["color1"] = color1 --Left color
-    table["color2"] = color2 --Right color
-    table["value"] = value
-    objects[ID] = table
-end
-
 function API.removeObject(ID)
     objects[ID] = {}
 end
@@ -167,13 +154,6 @@ function API.draw(ID)
         gpu.fill(x, y, width, height, " ")
         gpu.setBackground(lightColor, false)
         gpu.fill(x + 1, y + 1, width - 2, height - 2, " ")
-
-    elseif objectType == "bar" then
-        gpu.setBackground(data["color2"], false)
-        gpu.fill(x, y, width, height, " ")
-        local amount = math.floor((width/100) * data["value"])
-        gpu.setBackground(data["color1"], false)
-        gpu.fill(x, y, amount, height, " ")
     end
 
     gpu.setBackground(colors.black, true)
@@ -217,14 +197,6 @@ function API.handleTouchEvent(x, y)
     if not objectType == "button" then return end
 
     API.activateButton(ID)
-end
-
-function API.setBarValue(ID, value)
-    local objectType = objects[ID]["type"]
-    if not objectType == "bar" then return end
-
-    objects[ID]["value"] = API.clamp(value, 0, 100)
-    API.draw(ID)
 end
 
 function API.setLabelText(ID, text)
