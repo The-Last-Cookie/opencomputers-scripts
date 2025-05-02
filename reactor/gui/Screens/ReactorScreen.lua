@@ -37,6 +37,10 @@ end
 
 function decreaseHysMin(value)
 	local hysMin = reactor.getHysteresisMin()
+	if hysMin == 0.1 then
+		return
+	end
+
 	reactor.setHysteresisMin(hysMin - value)
 end
 

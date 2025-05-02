@@ -59,7 +59,7 @@ end
 
 function Reactor.setHysteresisMin(value)
     if value > 1 or value <= 0 or value >= hysteresis_max then
-        return
+        return nil
     end
 
     hysteresis_min = value
